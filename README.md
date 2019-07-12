@@ -68,7 +68,7 @@ Execution
 	
 To generate the experiment of figure 3 run the command:
 		
-		java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure1and2
+		java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure3
   
   A file `figure3.txt` will be generated inside the root folder, with the recall reached by each algorithm in each epoch. 
   
