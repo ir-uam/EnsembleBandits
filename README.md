@@ -3,7 +3,7 @@ Ensemble Bandit
 
   This repository contains the code and data needed to reproduce the experiments of the paper: 
   
-> R. Cañamares, M. Redondo, [P. Castells](http://ir.ii.uam.es/castells/). Multi-Armed Recommender System Bandit Ensembles. 13th ACM Conference on Recommender Systems (RecSys 2019). Copenhagen, Denmark, September 2019.
+> R. Cañamares, M. Redondo, [P. Castells](http://ir.ii.uam.es/castells/). [Multi-Armed Recommender System Bandit Ensembles](http://ir.ii.uam.es/pubs/recsys2019-rcanamares.pdf). 13th ACM Conference on Recommender Systems (RecSys 2019). Copenhagen, Denmark, September 2019.
 
 The software produces the results displayed in figures 1, 2 and 3 in the paper.
 
@@ -11,7 +11,6 @@ Authors
 --------------------
   Information Retrieval Group at Universidad Autónoma de Madrid
 - Rocío Cañamares (rocio.cannamares@uam.es)
-- Marcos Redondo
 - Pablo Castells (pablo.castells@uam.es)
   
 Software description
