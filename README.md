@@ -1,7 +1,7 @@
 Ensemble Bandit
 ------------------------
 
-  This repository contains the code and data needed to reproduce the experiments of the paper: 
+This repository contains the code and data needed to reproduce the experiments of the paper: 
   
 > R. Cañamares, M. Redondo, [P. Castells](http://ir.ii.uam.es/castells/). [Multi-Armed Recommender System Bandit Ensembles](http://ir.ii.uam.es/pubs/recsys2019-rcanamares.pdf). 13th ACM Conference on Recommender Systems (RecSys 2019). Copenhagen, Denmark, September 2019.
 
@@ -9,30 +9,30 @@ The software produces the results displayed in figures 1, 2 and 3 in the paper.
 
 Authors
 --------------------
-  Information Retrieval Group at Universidad Autónoma de Madrid
+Information Retrieval Group at Universidad Autónoma de Madrid
 - Rocío Cañamares (rocio.cannamares@uam.es)
 - Pablo Castells (pablo.castells@uam.es)
   
 Software description
 --------------------
   
-  This repository contains all the needed classes to reproduce the experiments explained in the paper. The software contains the following packages:
-- `es.uam.ir.ensemblebandit.arm`: classes to implement the arms of the bandits.
-- `es.uam.ir.ensemblebandit.bandit`: classes to implement the different bandit strategies.
-- `es.uam.ir.ensemblebandit.ensemble`: class that implements the dynamic ensemble.
-- `es.uam.ir.ensemblebandit.datagenerator`: classes to manipulate the data and generate the different training sets for each algorithm.
-- `es.uam.ir.ensemblebandit.filler`: classes to generate the recommendation when the algorithm is not able.
-- `es.uam.ir.ensemblebandit.util`: Additional classes, useful for the rest of the program
-- `es.uam.ir.ensemblebandit`: this package contains the specific top-level classes to generate each figure (`Figure1and2.java` and `Figure3.java` ).
+This repository contains all the needed classes to reproduce the experiments reported in the paper. The software contains the following packages:
+- `es.uam.ir.ensemblebandit.arm`: classes implementing bandit arms.
+- `es.uam.ir.ensemblebandit.bandit`: classes implementing different bandit strategies.
+- `es.uam.ir.ensemblebandit.ensemble`: class implementing a dynamic ensemble.
+- `es.uam.ir.ensemblebandit.datagenerator`: classes to handle the data and generate the different training sets for each algorithm.
+- `es.uam.ir.ensemblebandit.filler`: classes to complete recommendation rankings when an algorithm falls short of coverage.
+- `es.uam.ir.ensemblebandit.util`: additional classes, useful for the rest of the program.
+- `es.uam.ir.ensemblebandit`: top-level main classes to generate the figures of the paper.
   
-    The software uses the [RankSys](http://ranksys.org/) library, and extends some of its classes. Our extensions are located in the following packages:
-- `es.uam.ir.ensemblebandit.ranksys.rec.fast.basic`: extension of RankSys implementations of non-personalized recommendation, adding the implementation of relevant popularity.
+The software uses the [RankSys](http://ranksys.org/) library, and extends some of its classes. Our extensions are located in the following package:
+- `es.uam.ir.ensemblebandit.ranksys.rec.fast.basic`: extension of RankSys implementations of non-personalized recommendation, adding popularity-based recommendation.
   
   
 Data
 ----
   
-  The repository includes for convenience a copy of the dataset [MovieLens 1M](https://grouplens.org/datasets/movielens/1m) used in the paper, that is needed for the reproduction of the experiments.
+The repository includes for convenience a copy of the dataset [MovieLens 1M](https://grouplens.org/datasets/movielens/1m) used in the paper, that is needed for the reproduction of the experiments.
 
 System Requirements
 -------------------
