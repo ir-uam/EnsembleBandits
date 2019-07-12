@@ -66,7 +66,7 @@ Execution
 - `figure1.txt` contains the recall reached by each algorithm in each epoch. 
 - `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt` contain the number of times each arm has been selected by epsilon-greedy bandit and Thompson sampling bandit, respectively, in each epoch.
 	
-  To generate the experiment of figure 3 run the command:
+To generate the experiment of figure 3 run the command:
 		
 		java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure1and2
   
