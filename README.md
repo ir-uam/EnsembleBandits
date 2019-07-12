@@ -1,5 +1,5 @@
-  Ensemble Bandit
-  ------------------------
+Ensemble Bandit
+------------------------
 
   This repository contains the code and data needed to reproduce the experiments of the paper: 
   
@@ -7,15 +7,15 @@
 
 The software produces the results displayed in figures 1, 2 and 3 in the paper.
 
-  Authors
-  --------------------
+Authors
+--------------------
   Information Retrieval Group at Universidad Autónoma de Madrid
 - Rocío Cañamares (rocio.cannamares@uam.es)
 - Marcos Redondo
 - Pablo Castells (pablo.castells@uam.es)
   
-  Software description
-  --------------------
+Software description
+--------------------
   
   This repository contains all the needed classes to reproduce the experiments explained in the paper. The software contains the following packages:
 - `es.uam.ir.ensemblebandit.arm`: classes to implement the arms of the bandits.
@@ -30,13 +30,13 @@ The software produces the results displayed in figures 1, 2 and 3 in the paper.
 - `es.uam.ir.ensemblebandit.ranksys.rec.fast.basic`: extension of RankSys implementations of non-personalized recommendation, adding the implementation of relevant popularity.
   
   
-  Data
-  ----
+Data
+----
   
   The repository includes for convenience a copy of the dataset [MovieLens 1M](https://grouplens.org/datasets/movielens/1m) used in the paper, that is needed for the reproduction of the experiments.
 
-  System Requirements
-  -------------------
+System Requirements
+-------------------
 
 - Java JDK:
     1.8 or above (the software was tested using the version 1.8.0_181).
@@ -45,8 +45,8 @@ The software produces the results displayed in figures 1, 2 and 3 in the paper.
     tested with version 3.6.0.
 
 	
-  Installation
-  ------------
+Installation
+------------
   
   Download all the files and unzip them into any root folder.
   
@@ -55,8 +55,8 @@ The software produces the results displayed in figures 1, 2 and 3 in the paper.
     mvn compile assembly::single
     
   
-  Execution
-  ---------
+Execution
+---------
   
   To generate the experiments of figures 1 and 2 of the paper, run the command:
   
@@ -73,8 +73,8 @@ The software produces the results displayed in figures 1, 2 and 3 in the paper.
   A file `figure3.txt` will be generated inside the root folder, with the recall reached by each algorithm in each epoch. 
   
     
-  Example of the output files
-  ---------------------------
+Example of the output files
+---------------------------
   
   Exact values change slightly from one execution to another:
   
