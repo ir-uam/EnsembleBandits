@@ -61,26 +61,26 @@ Execution
   
   	java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure1and2
 	
-  Three files will be generated inside the root folder: `figure1.txt`, `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt`. 
-- `figure1.txt` contains the recall reached by each algorithm in each epoch. 
-- `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt` contain the number of times each arm has been selected by epsilon-greedy bandit and Thompson sampling bandit, respectively, in each epoch.
+  Three files will be generated into the root folder: `figure1.txt`, `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt`. 
+- `figure1.txt` contains the cumulated recall achieved by different recommender systems (ensembles and standalone algorithms) up to each epoch. 
+- `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt` contain the number of times each arm has been selected by the respective ensemble bandit (&epsilon;-greedy Thompson sampling) at each epoch.
 	
 To generate the experiment of figure 3 run the command:
 		
 	java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure3
   
-  A file `figure3.txt` will be generated inside the root folder, with the recall reached by each algorithm in each epoch. 
+  A file `figure3.txt` will be generated inside the root folder, with the cumulated recall achieved by different recommender systems (ensembles and standalone algorithms) in each epoch. 
   
     
 Example of the output files
 ---------------------------
   
-  Exact values change slightly from one execution to another:
+  Exact values slightly change from one execution to another:
   
   
-- `figure1.txt`:
+- `figure1.txt`
 
-		Epoch	Random recommendation	Most popular	User-based kNN	Matrix factorization	Thompson sampling bandit	Epsilon-greedy bandit	Dynamic ensemble
+		Epoch	Random recommendation	Most popular	User-based kNN	Matrix factorization	Thompson sampling ensemble	Epsilon-greedy ensemble	Dynamic ensemble
 		0	2.696704554150921E-4	0.004934240495027496	3.1704499487990556E-4	4.701011993046875E-4	0.0020225284156131906	0.0018548954298146197	4.701011993046875E-4
 		1	5.959866586472744E-4	0.009523722327003718	7.746371052996114E-4	6.362111710660639E-4	0.006815675505926515	0.006465863453815261	6.963686743473822E-4
 		2	8.769514905440563E-4	0.013965714832317606	0.0013621618073170153	8.91572723344437E-4	0.011313831787702835	0.010842215685267644	9.827947107775565E-4
@@ -94,7 +94,7 @@ Example of the output files
 		10	0.002994586357914277	0.0451088884294307	0.009861070273448985	0.00601606237359674	0.042791581785273425	0.039347028447182464	0.0061830739495644365
 		...
 	
-- `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt`:
+- `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt`
 
 		Epoch	Most popular	User-based kNN	Matrix factorization
 		0	1893	1865	1987
