@@ -115,8 +115,8 @@ public class Figure1and2 {
 
         Bandit<RecommenderArm<Long, Long>> thompsonSamplingBandit = new ThompsonSampling<>(1000, 1);
         RecommenderArm<Long, Long> thompsonSamplingPopArm = new RecommenderArm<>("Most popular");
-        RecommenderArm<Long, Long> thompsonSamplingMfArm = new RecommenderArm<>("User-based kNN");
-        RecommenderArm<Long, Long> thompsonSamplingKNNArm = new RecommenderArm<>("Matrix factorization");
+        RecommenderArm<Long, Long> thompsonSamplingMfArm = new RecommenderArm<>("Matrix factorization");
+        RecommenderArm<Long, Long> thompsonSamplingKNNArm = new RecommenderArm<>("User-based kNN");
         thompsonSamplingBandit.add(thompsonSamplingPopArm);
         thompsonSamplingBandit.add(thompsonSamplingMfArm);
         thompsonSamplingBandit.add(thompsonSamplingKNNArm);
@@ -124,8 +124,8 @@ public class Figure1and2 {
 
         Bandit<RecommenderArm<Long, Long>> epsilonGreedyBandit = new EpsilonGreedy<>(0.1);
         RecommenderArm<Long, Long> epsilonGreedyPopArm = new RecommenderArm<>("Most popular");
-        RecommenderArm<Long, Long> epsilonGreedyMfArm = new RecommenderArm<>("User-based kNN");
-        RecommenderArm<Long, Long> epsilonGreedyKNNArm = new RecommenderArm<>("Matrix factorization");
+        RecommenderArm<Long, Long> epsilonGreedyMfArm = new RecommenderArm<>("Matrix factorization");
+        RecommenderArm<Long, Long> epsilonGreedyKNNArm = new RecommenderArm<>("User-based kNN");
         epsilonGreedyBandit.add(epsilonGreedyPopArm);
         epsilonGreedyBandit.add(epsilonGreedyMfArm);
         epsilonGreedyBandit.add(epsilonGreedyKNNArm);
