@@ -61,6 +61,9 @@ public class Beta {
         return a / (a + gammaSample(rnd, beta));
     }
     
+    /**
+     * This implementation was adapted from https://github.com/gesiscss/promoss.
+     */
     public double gammaSample(Random rnd, int alpha) {
         if (alpha <= 0) return 0; 
         else if (alpha == 1) 
