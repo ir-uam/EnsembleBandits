@@ -28,11 +28,6 @@ This repository contains all the needed classes to reproduce the experiments rep
 The software uses the [RankSys](http://ranksys.org/) library, and extends some of its classes. Our extensions are located in the following package:
 - `es.uam.ir.ensemblebandit.ranksys.rec.fast.basic`: extension of RankSys implementations of non-personalized recommendation, adding popularity-based recommendation.
   
-  
-Data
-----
-  
-The repository includes for convenience a copy of the dataset [MovieLens 1M](https://grouplens.org/datasets/movielens/1m) used in the paper, that is needed for the reproduction of the experiments.
 
 System Requirements
 -------------------
