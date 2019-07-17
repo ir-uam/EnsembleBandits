@@ -54,16 +54,18 @@ Execution
   
   To run the experiments that produced the results displayed figures 1 and 2 of the paper, run the command:
   
-  	java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure1and2
+  	java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure1and2 dataPath
 	
+  Where `dataPath` is the rating data, including one rating per line with the format: `user \t item \t rating`.
   Three files will be generated into the root folder: `figure1.txt`, `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt`. 
 - `figure1.txt` contains the cumulated recall achieved by different recommender systems (ensembles and standalone algorithms) up to each epoch. 
 - `figure2-epsilon-greedy.txt` and `figure2-thompson-sampling.txt` contain the number of times each arm has been selected by the respective ensemble bandit (&epsilon;-greedy and Thompson sampling) at each epoch.
 	
 To generate the experiment for the results displayed in figure 3 run the command:
 		
-	java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure3
+	java -cp .\target\EnsembleBandit-0.1-jar-with-dependencies.jar es.uam.ir.ensemblebandit.Figure3 dataPath
   
+  Where `dataPath` is the rating data, including one rating per line with the format: `user \t item \t rating`.
   A file `figure3.txt` will be generated inside the root folder, with the cumulated recall achieved by different recommender systems (ensembles and standalone algorithms) at each epoch. 
   
     
