@@ -1,12 +1,12 @@
 /*
 * Copyright (C) 2019 Information Retrieval Group at Universidad Autónoma
-* de Madrid, http://ir.ii.uam.es
+* de Madrid, http://ir.ii.uam.es.
 *
 * This Source Code Form is subject to the terms of the Mozilla Public
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-package es.uam.ir.ensemblebandit.main;
+package es.uam.ir.ensemblebandit;
 
 import es.uam.eps.ir.ranksys.core.Recommendation;
 import static org.ranksys.formats.parsing.Parsers.lp;
@@ -41,8 +41,10 @@ import es.uam.ir.ensemblebandit.ensemble.Ensemble;
 import es.uam.ir.ensemblebandit.filler.Filler;
 import es.uam.ir.ensemblebandit.filler.RecommenderFill;
 import es.uam.ir.ensemblebandit.ranksys.rec.fast.basic.RelevantPopularity;
+import es.uam.ir.ensemblebandit.utils.GettUsersAndItems;
 import es.uam.ir.ensemblebandit.utils.Split;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -74,17 +76,14 @@ public class Figure1and2 {
         "Most popular", 
         "User-based kNN", 
         "Matrix factorization", 
-        "Thompson sampling bandit", 
-        "Epsilon-greedy bandit", 
+        "Thompson sampling ensemble", 
+        "Epsilon-greedy ensemble", 
         "Dynamic ensemble"
     };
 
     public static void main(String[] args) throws IOException {
 
-        String path = "datasets/ml1m/";
-        String userPath = path + "users.txt";
-        String itemPath = path + "items.txt";
-        String dataPath = path + "data.txt";
+        String dataPath = args[0];
         String resultsPath = "figure1.txt";
         double threshold = 1;
         int firstthreshold = 4;
@@ -99,8 +98,9 @@ public class Figure1and2 {
         out.println();
 
         // Read files
-        FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(userPath, lp));
-        FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(itemPath, lp));
+        ByteArrayInputStream[] usersAndItemsInputStreams = GettUsersAndItems.run(dataPath);
+        FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
+        FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
         FastPreferenceData<Long, Long> data = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(dataPath, lp, lp), userIndex, itemIndex);
         data = MapNegativeRatingsToZero.run(data, firstthreshold);
 
@@ -112,6 +112,7 @@ public class Figure1and2 {
         Map<String, SimpleFastPreferenceData<Long, Long>> trainData = Stream.of(recNames).collect(Collectors.toMap(recName -> recName, recName -> trainData0));
         Map<String, SimpleFastPreferenceData<Long, Long>> exclussionData = Stream.of(recNames).collect(Collectors.toMap(recName -> recName, recName -> trainData0));
         Map<String, SimpleFastPreferenceData<Long, Long>> testData = Stream.of(recNames).collect(Collectors.toMap(recName -> recName, recName -> testData0));
+        long testRelevantRatings = testData0.getAllUsers().mapToLong(user -> testData0.getUserPreferences(user).filter(up -> up.v2 >= threshold).count()).sum();
 
         Bandit<RecommenderArm<Long, Long>> thompsonSamplingBandit = new ThompsonSampling<>(1000, 1);
         RecommenderArm<Long, Long> thompsonSamplingPopArm = new RecommenderArm<>("Most popular");
@@ -155,22 +156,22 @@ public class Figure1and2 {
                 return getMF(trainData.get("Matrix factorization"), userIndex, itemIndex);
             });
 
-            recMap.put("Thompson sampling bandit", () -> {
-                Map<String, Recommender<Long, Long>> map = getCombinedRecommenders("Thompson sampling bandit", trainData, userIndex, itemIndex, threshold);
+            recMap.put("Thompson sampling ensemble", () -> {
+                Map<String, Recommender<Long, Long>> map = getCombinedRecommenders("Thompson sampling ensemble", trainData, userIndex, itemIndex, threshold);
 
-                thompsonSamplingPopArm.update(map.get("Most popular"), binRel.get("Thompson sampling bandit"));
-                thompsonSamplingMfArm.update(map.get("Matrix factorization"), binRel.get("Thompson sampling bandit"));
-                thompsonSamplingKNNArm.update(map.get("User-based kNN"), binRel.get("Thompson sampling bandit"));
+                thompsonSamplingPopArm.update(map.get("Most popular"), binRel.get("Thompson sampling ensemble"));
+                thompsonSamplingMfArm.update(map.get("Matrix factorization"), binRel.get("Thompson sampling ensemble"));
+                thompsonSamplingKNNArm.update(map.get("User-based kNN"), binRel.get("Thompson sampling ensemble"));
 
                 return thompsonSamplingRecommenderBandit;
             });
 
-            recMap.put("Epsilon-greedy bandit", () -> {
-                Map<String, Recommender<Long, Long>> map = getCombinedRecommenders("Epsilon-greedy bandit", trainData, userIndex, itemIndex, threshold);
+            recMap.put("Epsilon-greedy ensemble", () -> {
+                Map<String, Recommender<Long, Long>> map = getCombinedRecommenders("Epsilon-greedy ensemble", trainData, userIndex, itemIndex, threshold);
 
-                epsilonGreedyPopArm.update(map.get("Most popular"), binRel.get("Epsilon-greedy bandit"));
-                epsilonGreedyMfArm.update(map.get("Matrix factorization"), binRel.get("Epsilon-greedy bandit"));
-                epsilonGreedyKNNArm.update(map.get("User-based kNN"), binRel.get("Epsilon-greedy bandit"));
+                epsilonGreedyPopArm.update(map.get("Most popular"), binRel.get("Epsilon-greedy ensemble"));
+                epsilonGreedyMfArm.update(map.get("Matrix factorization"), binRel.get("Epsilon-greedy ensemble"));
+                epsilonGreedyKNNArm.update(map.get("User-based kNN"), binRel.get("Epsilon-greedy ensemble"));
 
                 return epsilonGreedyRecommenderBandit;
             });
@@ -204,7 +205,7 @@ public class Figure1and2 {
 
                     ConcurrentMap<Long, Map<Long, Double>> recs = new ConcurrentHashMap<>();
                     ConcurrentMap<Long, Map<Long, Double>> recsTest = new ConcurrentHashMap<>();
-                    double prec1 = targetUsers.stream().parallel()
+                    double rewards = targetUsers.stream().parallel()
                             .map(user -> {
                                 ConcurrentHashMap<Long, Double> rec = new ConcurrentHashMap<>();
                                 recs.put(user, rec);
@@ -229,8 +230,7 @@ public class Figure1and2 {
                             .sum();
 
                     // Print metric value
-                    int testRelevantRatings = targetUsers.stream().mapToInt(user -> binRel.get(recName).getModel(user).getRelevantItems().size()).sum();
-                    cumulatedReturns.addTo(recName, prec1);
+                    cumulatedReturns.addTo(recName, rewards);
                     out.print("\t" + cumulatedReturns.get(recName)/testRelevantRatings);
 
                     // Add ratings to train, remove from test

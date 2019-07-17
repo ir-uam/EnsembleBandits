@@ -1,6 +1,6 @@
 /*
 * Copyright (C) 2019 Information Retrieval Group at Universidad Autónoma
-* de Madrid, http://ir.ii.uam.es
+* de Madrid, http://ir.ii.uam.es.
 *
 * This Source Code Form is subject to the terms of the Mozilla Public
 * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -22,19 +22,16 @@ import java.util.Map;
 public class EpsilonGreedy<A extends Arm> extends Bandit<A> {
     double epsilon;
     Map<A, Double> means;
-    Map<A, Integer> num;
 
     public EpsilonGreedy(double epsilon) {
         this.epsilon = epsilon;
         means = new HashMap<>();
-        num = new HashMap<>();
     }
 
     @Override
     public void add(A arm) {
         super.add(arm);
         means.put(arm, 0.0);
-        num.put(arm, 0);
     }
 
     @Override
@@ -56,10 +53,14 @@ public class EpsilonGreedy<A extends Arm> extends Bandit<A> {
 
     @Override
     public EpochRewards update(A arm) {
-        EpochRewards rewards = arm.sampleReward();
-        int n = num.get(arm);
-        num.put(arm,num.get(arm) + rewards.getHits() + rewards.getMisses());
-        means.put(arm, (means.get(arm) * n + rewards.getHits()) / num.get(arm));
-        return rewards;
+        EpochRewards reward = arm.sampleReward();
+        double mean = reward.getHits() * 1.0 / (reward.getHits() + reward.getMisses());
+        
+//        means.put(arm, (means.get(arm) + mean) / 2);
+        
+        int epoch = rewards.size();
+        means.put(arm, (means.get(arm)*epoch + mean) / (epoch+1));
+        
+        return reward;
     }
 }
